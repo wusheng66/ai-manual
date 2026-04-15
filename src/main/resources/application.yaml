@@ -1,0 +1,79 @@
+spring:
+  application:
+    name: yu-ai-agent
+  ai:
+    dashscope:
+      api-key: sk-5df1e35c34ed47f6a1415d92d5f17dc6
+      chat:
+        options:
+          model: qwen-plus
+
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: llama3.2
+
+  jpa:
+    show-sql: true # 开启 SQL 显示
+    properties:
+      hibernate:
+        format_sql: true # 格式化 SQL，更易读
+        use_sql_comments: true # 显示 SQL 注释（可选）
+  datasource:
+    url: jdbc:postgresql://localhost:5432/manual_db?currentSchema=public&stringtype=unspecified
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+
+mybatis-plus:
+  configuration:
+    # 开启驼峰命名转换 (数据库 user_name -> Java userName)
+    map-underscore-to-camel-case: true
+    # 打印 SQL 日志 (开发环境开启)
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 主键策略：数据库自增
+      id-type: auto
+      # 逻辑删除配置 (可选)
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+server:
+  port: 8123
+  servlet:
+    context-path: /api
+  # 关键：Spring MVC 的异步超时设置（兜底）
+    session:
+      timeout: 30m
+  tomcat:
+    # 关键：禁用 Tomcat 的输出缓冲，让数据直接写入网络
+    relaxed-query-chars: '|,{,}'
+
+# springdoc-openapi
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.yupi.yuaiagent.controller
+# knife4j
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+
+
+logging:
+  level:
+    # 将 Hibernate 的 SQL 日志级别设为 DEBUG
+    org.hibernate.SQL: DEBUG
+    # 将参数绑定日志级别设为 TRACE (这样能看到向量具体数值)
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
