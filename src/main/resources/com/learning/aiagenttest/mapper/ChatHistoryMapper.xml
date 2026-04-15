@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learning.aiagenttest.mapper.ChatHistoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.learning.aiagenttest.domain.ChatHistory">
+            <result property="id" column="id" />
+            <result property="conversation_id" column="conversation_id" />
+            <result property="message_type" column="message_type" />
+            <result property="content" column="content" />
+            <result property="timestamp" column="timestamp" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,conversation_id,message_type,content,timestamp
+    </sql>
+</mapper>
