@@ -34,8 +34,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.alibaba/dashscope-sdk-java -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dashscope-sdk-java</artifactId>
@@ -52,7 +55,6 @@
             <version>1.0.0-M6</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/dev.langchain4j/langchain4j-community-dashscope -->
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-community-dashscope</artifactId>
@@ -63,17 +65,11 @@
             <artifactId>jsonschema-generator</artifactId>
             <version>4.38.0</version>
         </dependency>
-        <!-- 手动整合 PGVector 向量存储 -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-jdbc</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- Source: https://mvnrepository.com/artifact/org.springframework.ai/spring-ai-pgvector-store -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-pgvector-store</artifactId>
@@ -83,7 +79,19 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-            <version>3.5.5</version> <!-- 建议使用最新版 -->
+            <version>3.5.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.4.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.tess4j</groupId>
+            <artifactId>tess4j</artifactId>
+            <version>5.13.0</version>
         </dependency>
 
         <dependency>
@@ -92,14 +100,12 @@
             <version>0.23.0</version>
         </dependency>
 
-        <!-- Source: https://mvnrepository.com/artifact/org.springframework.ai/spring-ai-markdown-document-reader -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-markdown-document-reader</artifactId>
             <version>1.0.0-M6</version>
             <scope>compile</scope>
         </dependency>
-        <!-- Source: https://mvnrepository.com/artifact/org.springframework.ai/spring-ai-tika-document-reader -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-tika-document-reader</artifactId>
@@ -112,8 +118,6 @@
             <artifactId>spring-ai-advisors-vector-store</artifactId>
             <version>1.0.0-M7</version>
         </dependency>
-        <!-- 如果使用本地 Embedding 模型 (可选) -->
-        <!-- Source: https://mvnrepository.com/artifact/org.springframework.ai/spring-ai-starter-model-transformers -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-model-transformers</artifactId>
@@ -127,29 +131,30 @@
             <version>1.14.5</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.19.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark-all</artifactId>
+            <version>0.64.8</version>
+        </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.itextpdf/itext-core -->
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itext-core</artifactId>
             <version>9.1.0</version>
             <type>pom</type>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.itextpdf/font-asian -->
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>font-asian</artifactId>
             <version>9.1.0</version>
             <scope>test</scope>
         </dependency>
-
 
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -172,15 +177,26 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+            <!-- 1. Spring Boot Actuator，提供了监控和管理功能 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- 2. Micrometer 的 Prometheus 注册表实现，它会传递依赖引入 micrometer-core -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
-            <!-- 强制使用 Jackson 3 -->
             <dependency>
                 <groupId>tools.jackson</groupId>
                 <artifactId>jackson-bom</artifactId>
-                <version>3.0.0-rc1</version> <!-- 或者是 Spring AI 依赖的具体版本 -->
+                <version>3.0.0-rc1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -224,7 +240,6 @@
         </plugins>
     </build>
 
-    <!-- 需要引入仓库配置，才能下载到最新的 Spring AI 相关的依赖 -->
     <repositories>
         <repository>
             <id>spring-milestones</id>

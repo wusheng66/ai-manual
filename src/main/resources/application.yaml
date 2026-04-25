@@ -1,6 +1,12 @@
 spring:
   application:
     name: yu-ai-agent
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 3s
   ai:
     dashscope:
       api-key: sk-5df1e35c34ed47f6a1415d92d5f17dc6
@@ -69,7 +75,13 @@ knife4j:
   setting:
     language: zh_cn
 
-
+manual:
+  ocr:
+    enabled: true
+    tessdata-path: ""
+    language: chi_sim+eng
+  image-summary:
+    enabled: true
 
 logging:
   level:
@@ -77,3 +89,18 @@ logging:
     org.hibernate.SQL: DEBUG
     # 将参数绑定日志级别设为 TRACE (这样能看到向量具体数值)
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+multi-agent:
+  cache:
+    key-prefix: multi-agent
+    answer-ttl-minutes: 30
+    history-ttl-minutes: 60
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus # 暴露 prometheus 端点
+  endpoint:
+    prometheus:
+      enabled: false # 确保 prometheus 端点是启用的

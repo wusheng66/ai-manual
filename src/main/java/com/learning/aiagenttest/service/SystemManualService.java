@@ -1,7 +1,8 @@
 package com.learning.aiagenttest.service;
 
+import com.learning.aiagenttest.model.manual.ManualUploadResult;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface SystemManualService {
-    void parseManual(MultipartFile file);
+    ManualUploadResult parseManual(MultipartFile file);
 }
